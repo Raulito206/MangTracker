@@ -12,6 +12,8 @@
 /build
 
 # misc
+ui-debug.log
+firebase-debug.log
 .DS_Store
 .env.local
 .env.development.local
