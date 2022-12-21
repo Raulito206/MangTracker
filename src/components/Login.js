@@ -1,19 +1,26 @@
-import { auth, provider } from '../Firebase'
-import { getAuth, getRedirectResult, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { signInWithRedirect } from "firebase/auth";
 import GoogleButton from 'react-google-button';
-import React from 'react'
+import React, { useContext } from 'react'
+import { useAuth } from '../contexts/AuthContext'
+import { auth, provider } from '../Firebase'
+import { signInWithPopup } from 'firebase/auth'; 
+import { Navigate } from 'react-router-dom'
 
+export const Login = () => {
 
-export const Login = ({setUser}) => {
+    // const { login_process } = useAuth()
+    const { user } = useAuth()
 
-    async function login_process() {
+    async function handleLogin() {
         try {
-            const user = await signInWithPopup(auth, provider);
-            setUser(auth.currentUser)
+            await signInWithPopup(auth, provider);
         } catch (error) {
             console.log(error);
         }
     }
-    return <GoogleButton type="dark" onClick={login_process} />
+
+    if (user) {
+        return <Navigate to={'/'}></Navigate>
+    }
+
+    return <GoogleButton type="dark" onClick={handleLogin} />
 }
