@@ -1,5 +1,5 @@
 import GoogleButton from 'react-google-button';
-import React, { useContext } from 'react'
+import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { auth, provider } from '../Firebase'
 import { signInWithPopup } from 'firebase/auth'; 
@@ -18,9 +18,17 @@ export const Login = () => {
         }
     }
 
+    function SigninButton() {
+        return (
+            <button>
+
+            </button>
+        )
+    }
+
     if (user) {
         return <Navigate to={'/'}></Navigate>
     }
-
+    // return <SigninButton/>
     return <GoogleButton type="dark" onClick={handleLogin} />
 }
