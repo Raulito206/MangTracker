@@ -1,27 +1,24 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { auth } from '../Firebase'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { onAuthStateChanged, User as UserInterface } from 'firebase/auth'
+import { FC } from 'react';
 
-const AuthContext = React.createContext();
+interface AuthContextInterface {
+    user: UserInterface;
+}
 
-export function useAuth() {
+const AuthContext = React.createContext<AuthContextInterface>(null);
+
+export const useAuth = ():AuthContextInterface => {
     return useContext(AuthContext);
 }
 
-export function AuthProvider({ children }) {
-    const[user, setUser] = useState({});
+export const AuthProvider:FC<any> = ({ children }: any):JSX.Element => {
 
-    async function signout_process() {
-        try {
-            await signOut(auth);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    const[user, setUser] = useState<UserInterface>(null);
 
     const globalValue = {
         user,
-        signout_process
     }
 
     useEffect(() => {
