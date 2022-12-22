@@ -22,5 +22,5 @@ module.exports = {
       "react-dom": "ReactDOM",
     },
     // addition - add source-map support
-    devtool: "source-map"
+    devtool: "source-map",
   }

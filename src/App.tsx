@@ -5,18 +5,20 @@ import { Home } from './components/Home'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { useEffect, useState } from "react";
-import { MagnifyingGlass } from 'react-loader-spinner'
+import { Watch } from 'react-loader-spinner'
 
 function App() {
 
   const [isLoading,setIsLoading] = useState(true)
 
+  // Loads when mounted
   useEffect(() => {
 
+    // Loading affect for async await
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 1300);
 
   }, [])
   
@@ -25,7 +27,7 @@ function App() {
       {
         isLoading
         ?
-        <MagnifyingGlass color={""} glassColor={"white"} />
+        <Watch color="white"/>
         :
         <BrowserRouter>
           <AuthProvider>
