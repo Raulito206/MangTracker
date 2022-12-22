@@ -2,8 +2,12 @@ import { signOut } from 'firebase/auth'
 import { FC } from 'react';
 import { auth } from '../Firebase'
 
+/**
+ * Returns JSX button for logout that includes handleSignout()
+ * @returns JSX.Element
+ */
 export const Logout:FC = ():JSX.Element => {
-    async function signout_process() {
+    async function handleSignout() {
         try {
             await signOut(auth);
         } catch (error) {
@@ -12,6 +16,6 @@ export const Logout:FC = ():JSX.Element => {
     }
 
     return (
-        <button onClick={signout_process}>Logout</button>
+        <button onClick={handleSignout}>Logout</button>
     )
 }

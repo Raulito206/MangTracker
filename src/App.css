@@ -4,7 +4,19 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  background-image: url(./assets/circles.jpg);
   height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
 }
 
 .App-logo {
@@ -40,4 +52,32 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.mangtracker {
+   animation: fadeInAnimation ease 2s;
+   animation-iteration-count: 1;
+   animation-fill-mode: forwards;
+
+   margin-top: 0px;
+   margin-bottom: 10px;
+   font-family: sans-serif;
+   font-size: 5vmax;
+   background: linear-gradient(to right, #ef5350, #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047, #eeff41, #f9a825, #ff5722);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+ 
+.HomeBookmarks {
+    animation: fadeInAnimation ease 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.signin-btn-group {
+    background-color: rgba(244, 244, 244, 0.979);
+}
+
+.signin-logo {
+  height: 2vmax;
 }
