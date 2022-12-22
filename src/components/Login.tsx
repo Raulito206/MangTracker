@@ -2,8 +2,10 @@ import GoogleButton from 'react-google-button';
 import { useAuth } from '../contexts/AuthContext'
 import { auth, provider } from '../Firebase'
 import { signInWithPopup } from 'firebase/auth'; 
+import { createUserDocumentFromAuth } from '../Firebase'
 import { Navigate } from 'react-router-dom'
 import { FC } from 'react';
+
 
 export const Login:FC = ():JSX.Element => {
 
@@ -12,11 +14,15 @@ export const Login:FC = ():JSX.Element => {
 
     async function handleLogin() {
         try {
-            await signInWithPopup(auth, provider);
+            const response = await signInWithPopup(auth, provider);
+            
+            console.log(response);
         } catch (error) {
             console.log(error);
         }
     }
+
+    const userDocRef = createUserDocumentFromAuth(user);
 
     // function SigninButton() {
     //     return (
