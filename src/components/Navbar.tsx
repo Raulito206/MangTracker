@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { Logout } from './Logout'
 
 
-export const Navbar:FC = () => {
+export const Navbar:FC = ():JSX.Element => {
     const { user } = useAuth()
     if (!user) {
         console.log('not logged in');
