@@ -1,5 +1,5 @@
 import "./App.css";
-import "./Firebase.js";
+import "./Firebase";
 import { Login } from './components/Login';
 import { Navbar } from './components/Navbar'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
@@ -11,8 +11,8 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route exact path='/login' element={<Login/>}/>
-          <Route exact path='/' element={<Navbar/>}/>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/' element={<Navbar/>}/>
         </Routes> 
       </AuthProvider>
     </BrowserRouter>
