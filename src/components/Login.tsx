@@ -5,7 +5,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { Navigate } from 'react-router-dom'
 import { FC } from 'react';
 
-export const Login:FC = () => {
+export const Login:FC = ():JSX.Element => {
 
     // const { login_process } = useAuth()
     const { user } = useAuth();

@@ -2,7 +2,7 @@ import { signOut } from 'firebase/auth'
 import { FC } from 'react';
 import { auth } from '../Firebase'
 
-export const Logout:FC = () => {
+export const Logout:FC = ():JSX.Element => {
     async function signout_process() {
         try {
             await signOut(auth);
