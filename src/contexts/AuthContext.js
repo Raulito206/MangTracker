@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { auth, provider } from '../Firebase'
-import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
+import { auth } from '../Firebase'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 
 const AuthContext = React.createContext();
 
@@ -10,15 +10,6 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
     const[user, setUser] = useState({});
-
-    async function login_process() {
-        console.log('Attempting to sign in')
-        try {
-            await signInWithPopup(auth, provider);
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     async function signout_process() {
         try {
@@ -30,7 +21,6 @@ export function AuthProvider({ children }) {
 
     const globalValue = {
         user,
-        login_process,
         signout_process
     }
 
