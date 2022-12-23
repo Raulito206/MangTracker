@@ -2,6 +2,8 @@
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { Auth, getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc, Firestore, DocumentReference, DocumentData } from "firebase/firestore";
+import { FacebookAuthProvider } from "firebase/auth";
+import { GithubAuthProvider } from "firebase/auth";
 import { User } from 'firebase/auth'
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -21,11 +23,14 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app:FirebaseApp = initializeApp(firebaseConfig);
-export const provider:GoogleAuthProvider = new GoogleAuthProvider();
+//Different types of authentication
+export const googleProvider:GoogleAuthProvider = new GoogleAuthProvider();
+export const githubProvider:GithubAuthProvider = new GithubAuthProvider();
+export const facebookProvider:FacebookAuthProvider = new FacebookAuthProvider();
 export const auth:Auth = getAuth(app);
 
 // Initialize Cloud Firestore and get a reference to the service
-export const db:Firestore = getFirestore();
+export const db:Firestore = getFirestore(app);
 
 /**
  * Upsert a given user into the database
@@ -35,7 +40,7 @@ export const db:Firestore = getFirestore();
  * @params firebase/auth.User
  * @returns Promise<DocumentReference<DocumentData>>; DocumentReference of the user
  */
-export const createUserDocumentFromUser = async(user:User): Promise<DocumentReference<DocumentData>> => {
+export const createUserDocument = async(user:User): Promise<DocumentReference<DocumentData>> => {
 
   // Document reference to users/user.uid where uid is the document name
   const userDocRef = doc(db, 'users', user.uid);
