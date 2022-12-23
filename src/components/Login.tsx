@@ -118,7 +118,7 @@ export const Login:FC = ():JSX.Element => {
     return (
         <div className={'login-wrapper'}>
             <div className={'login'}>
-                <div className={'mangtracker'}>MangTracker</div>
+                <div className={'mangtracker'}>Mangtracker</div>
                 <h2 style={{color:"white", fontSize:"2vmax"}}>Sign-in options</h2>
                 
                     <ButtonGroup className="signin-btn-group" aria-label="contained primary button group">
