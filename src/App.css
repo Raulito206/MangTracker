@@ -2,7 +2,6 @@
   text-align: center;
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
   background-image: url(./assets/circles.jpg);
   height: 100vh;
@@ -78,14 +77,31 @@
     background-color: rgba(244, 244, 244, 0.979);
 }
 
+.login-wrapper {
+  display: flex;
+  flex: column;
+  align-items: center;
+}
+
+.loading-spin-container {
+  display: flex;
+  flex: column;
+  align-items: center;
+}
+
 .signin-logo {
   height: 2vmax;
 }
 
-.MuiBox-root {
-  background-color: white;
+.MuiTabs-scroller, .MuiTabs-scroller a {
+  background-color: rgba(255,255,255,1);
+  border-radius: 20px;
+  color: black;
 }
 
-.navbar {
-  vertical-align: top;
+
+.navbar-wrapper {
+  display: flex;
+  flex-direction: column;
 }
+
