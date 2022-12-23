@@ -112,4 +112,15 @@
  bottom: 3rem;
  right: 2rem;
 }
+.css-1fo2sjy-MuiButtonBase-root-MuiFab-root{
+background-color: white !important;
+color: #1976d2 !important;
+}
+.css-1fo2sjy-MuiButtonBase-root-MuiFab-root:hover{
+  transition: 0.1s ease-in ;
+  background-color: #1976d2 !important;
+  color: white !important;
+  font-weight: .5px !important;
+  transform: translateY(-5px);
+}
 
