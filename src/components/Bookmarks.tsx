@@ -32,7 +32,7 @@ export const Bookmarks:FC = ():JSX.Element => {
             <Navbar SelectedTab={1}/>
             <div className="addButton">
             <Fab color="primary" aria-label="add" align-self="right">
-                <AddIcon/>
+                <AddIcon />
             </Fab>
             </div>
 
