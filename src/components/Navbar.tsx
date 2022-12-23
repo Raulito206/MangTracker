@@ -1,6 +1,10 @@
 import { FC, SyntheticEvent, useState } from "react";
 import { handleSignout } from "./Logout"
 import { Tabs, Tab, Box } from "@mui/material"
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import HomeIcon from '@mui/icons-material/Home';
+import Person2Icon from '@mui/icons-material/Person2';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 interface SelectedTabType {
     SelectedTab: number;
@@ -22,11 +26,27 @@ export const Navbar:FC<SelectedTabType> = ({SelectedTab}):JSX.Element => {
     return (
         <div className="navbar-wrapper">
             <Box className="navbar-box">
-                <Tabs className="navbar" value={selectedTab} onChange={handleChange}>
-                    <Tab className="navbar-btn-home" href="/home" label="Home"/>
-                    <Tab className="navbar-btn-bookmarks" href="/bookmarks" label="Bookmarks"/>
-                    <Tab className="navbar-btn-account" href="/account" label="Account"/>
-                    <Tab className="navbar-btn-logout" onClick={handleSignout} label="Logout"/>
+                <Tabs variant="scrollable" className="navbar" value={selectedTab} onChange={handleChange}>
+                    <Tab 
+                        icon={<HomeIcon/>} 
+                        className="navbar-btn-home" 
+                        href="/home"
+                    />
+                    <Tab 
+                        icon={<BookmarksIcon/>} 
+                        className="navbar-btn-bookmarks" 
+                        href="/bookmarks"
+                    />
+                    <Tab 
+                        icon={<Person2Icon/>} 
+                        className="navbar-btn-account" 
+                        href="/account"
+                    />
+                    <Tab 
+                        icon={<LogoutIcon/>}   
+                        className="navbar-btn-logout" 
+                        onClick={handleSignout}
+                    />
                 </Tabs>
             </Box>
         </div>
