@@ -1,16 +1,31 @@
 import { Navbar } from "./Navbar"
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import "../App.css";
+import { createUserDocument } from "../Firebase"
+import { Login } from "./Login"
 
 /**
  * Returns Account page as JSX 
  * @returns JSX.Element
  */
 export const Account:FC = ():JSX.Element => {
-    var userinfo = [
-    'Dummy Username', 
-    'Dummy ID', 
-    'Dummy Display']
+
+    // User info and set user info
+    const [userinfo, setUserInfo] = useState([]);
+
+    // Fetch the required data and store in state
+    useEffect(() => {
+        const fetchData = () => {
+            // Generate unique user documentation reference
+            const uniqueUserRef = {};
+            
+            // Fetch user data from firestore using user reference
+            
+        }
+    }
+
+    );
+    
 
     return (
         <div>

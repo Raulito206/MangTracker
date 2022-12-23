@@ -132,7 +132,10 @@ color: #1976d2 !important;
   justify-content: space-between;
   color: white;
   font-size: 20px;
+  padding-right: 5%;
   position: absolute;
+  border-style: solid;
+  border-radius: 20px;
 }
 
 .accounttextul {
