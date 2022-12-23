@@ -56,7 +56,7 @@ export const Login:FC = ():JSX.Element => {
 
     // If user exists (logged in), navigate to home page
     if (user) {
-        return <Navigate to={'/'}></Navigate>
+        return <Navigate to={'/home'}></Navigate>
     }
     
     // If user is not logged in, return a login button

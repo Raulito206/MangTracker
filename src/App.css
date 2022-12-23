@@ -81,3 +81,11 @@
 .signin-logo {
   height: 2vmax;
 }
+
+.MuiBox-root {
+  background-color: white;
+}
+
+.navbar {
+  vertical-align: top;
+}
