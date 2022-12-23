@@ -1,21 +1,15 @@
 import { signOut } from 'firebase/auth'
-import { FC } from 'react';
 import { auth } from '../Firebase'
+import { Navigate } from 'react-router-dom';
 
 /**
- * Returns JSX button for logout that includes handleSignout()
- * @returns JSX.Element
+ * Async function that handles signout
  */
-export const Logout:FC = ():JSX.Element => {
-    async function handleSignout() {
-        try {
-            await signOut(auth);
-        } catch (error) {
-            console.log(error);
-        }
+ export async function handleSignout() {
+    try {
+        await signOut(auth);
+    } catch (error) {
+        console.log(error);
     }
-
-    return (
-        <button onClick={handleSignout}>Logout</button>
-    )
+    <Navigate to="/login"/>
 }
