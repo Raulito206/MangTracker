@@ -1,7 +1,7 @@
 import { useAuth } from '../contexts/AuthContext'
-import { auth, provider } from '../Firebase'
+import { auth, googleProvider, githubProvider, facebookProvider } from '../Firebase'
 import { signInWithPopup } from 'firebase/auth'; 
-import { createUserDocumentFromUser } from '../Firebase'
+import { createUserDocument } from '../Firebase'
 import { Navigate } from 'react-router-dom'
 import { FC, useState } from 'react';
 import '../App.css';
@@ -27,7 +27,7 @@ export const Login:FC = ():JSX.Element => {
     const { user } = useAuth();
 
     // Run when login button is clicked
-    async function handleLogin() {
+    async function handleGoogleLogin() {
         setIsLoading(true);
         const buttons = document.getElementsByClassName("signin-logo");
         for (let i = 0; i < buttons.length; i++) {
@@ -36,12 +36,12 @@ export const Login:FC = ():JSX.Element => {
         
         try {
             // Firebase signInWithPopup auth flow,
-            await signInWithPopup(auth, provider);
+           const { user } = await signInWithPopup(auth, googleProvider);
 
             // Upsert user into database
             // document = UID of user
             try {
-                await createUserDocumentFromUser(user);
+                await createUserDocument(user);
             } catch (error) {
                 console.error(error)
             }
@@ -54,6 +54,61 @@ export const Login:FC = ():JSX.Element => {
         }
     }
 
+
+    async function handleGithubLogin() {
+        setIsLoading(true);
+        const buttons = document.getElementsByClassName("signin-logo");
+        for (let i = 0; i < buttons.length; i++) {
+            buttons.item(i).setAttribute("style", "visibility:hidden")
+        }
+        
+        try {
+            // Firebase signInWithPopup auth flow,
+           const { user } = await signInWithPopup(auth, githubProvider);
+
+            // Upsert user into database
+            // document = UID of user
+            try {
+                await createUserDocument(user);
+            } catch (error) {
+                console.error(error)
+            }
+        } catch (error) {
+            console.error(error);
+            
+        }
+        setIsLoading(false);
+        for (let i = 0; i < buttons.length; i++) {
+            buttons.item(i).setAttribute("style", "visibility:show")
+        }
+    }
+    async function handleFacebookLogin() {
+        setIsLoading(true);
+        const buttons = document.getElementsByClassName("signin-logo");
+        for (let i = 0; i < buttons.length; i++) {
+            buttons.item(i).setAttribute("style", "visibility:hidden")
+        }
+        
+        try {
+            // Firebase signInWithPopup auth flow,
+           const { user } = await signInWithPopup(auth, facebookProvider);
+
+            // Upsert user into database
+            // document = UID of user
+            try {
+                await createUserDocument(user);
+            } catch (error) {
+                console.error(error)
+            }
+        } catch (error) {
+            console.error(error);
+            
+        }
+        setIsLoading(false);
+        for (let i = 0; i < buttons.length; i++) {
+            buttons.item(i).setAttribute("style", "visibility:show")
+        }
+    }
     // If user exists (logged in), navigate to home page
     if (user) {
         return <Navigate to={'/'}></Navigate>
@@ -72,15 +127,23 @@ export const Login:FC = ():JSX.Element => {
                             variant="contained" 
                             color="primary" 
                             loading={isLoading} 
-                            onClick={handleLogin}>
+                            onClick={handleGoogleLogin}>
                                 <img className="signin-logo" src={googleLogo} alt="Google Logo"/>
                         </LoadingButton>
-                        <Button>
+                        <LoadingButton
+                         variant="contained" 
+                         color="primary" 
+                         loading={isLoading} 
+                         onClick={handleGithubLogin}>
                             <img className="signin-logo" src={githubLogo} alt="Google Logo"/>
-                        </Button>
-                        <Button>
+                        </LoadingButton>
+                        <LoadingButton
+                         variant="contained" 
+                         color="primary" 
+                         loading={isLoading} 
+                         onClick={handleFacebookLogin}>
                             <img className="signin-logo" src={facebookLogo} alt="Google Logo"/>
-                        </Button>
+                        </LoadingButton>
                     </ButtonGroup>
             </div>
         </div>
