@@ -32,7 +32,10 @@ function App() {
     },
   })
 
+  // Used to check for user auth
   const context = useAuth();
+  
+  // Used to access appropriate Route component after auth
   const outlet = () => <Outlet />;
 
   return (
@@ -40,7 +43,9 @@ function App() {
       {
         isLoading
         ?
-        <Watch color="white"/>
+        <div className="loading-spin-container">
+          <Watch wrapperClass="loading-spin-watch" color="white"/>
+        </div>
         :
         <BrowserRouter>
             <ThemeProvider theme={theme}>

@@ -20,13 +20,13 @@ export const Navbar:FC<SelectedTabType> = ({SelectedTab}):JSX.Element => {
     }
     
     return (
-        <div className="navbar">
-            <Box>
-                <Tabs value={selectedTab} onChange={handleChange} aria-label="nav tabs example">
-                    <Tab href="/home" label="Home"/>
-                    <Tab href="/bookmarks" label="Bookmarks"/>
-                    <Tab href="/account" label="Account"/>
-                    <Tab onClick={handleSignout} label="Logout"/>
+        <div className="navbar-wrapper">
+            <Box className="navbar-box">
+                <Tabs className="navbar" value={selectedTab} onChange={handleChange}>
+                    <Tab className="navbar-btn-home" href="/home" label="Home"/>
+                    <Tab className="navbar-btn-bookmarks" href="/bookmarks" label="Bookmarks"/>
+                    <Tab className="navbar-btn-account" href="/account" label="Account"/>
+                    <Tab className="navbar-btn-logout" onClick={handleSignout} label="Logout"/>
                 </Tabs>
             </Box>
         </div>

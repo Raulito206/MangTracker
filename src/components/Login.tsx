@@ -117,8 +117,8 @@ export const Login:FC = ():JSX.Element => {
     // If user is not logged in, return a login button
     // return <GoogleButton type="dark" onClick={handleLogin} />
     return (
-        <div className={'login'}>
-            <div className={'container'}>
+        <div className={'login-wrapper'}>
+            <div className={'login'}>
                 <div className={'mangtracker'}>MangTracker</div>
                 <h2 style={{color:"white", fontSize:"2vmax"}}>Sign-in options</h2>
                 
