@@ -127,17 +127,18 @@ color: #1976d2 !important;
 =======
 
 .accounttext {
-  margin-top: 30%;
+  margin-top: 10%;
   display: flex;
   justify-content: space-between;
   color: white;
   font-size: 20px;
-  border-style: dotted;
+  position: absolute;
 }
 
 .accounttextul {
   list-style-type: none;
-  text-align: right;
+  text-align: left;
+  flex-shrink: 0 !important;
 }
 
 >>>>>>> 23ec2b7 (Basic UI)
