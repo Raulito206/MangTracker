@@ -22,7 +22,7 @@ function App() {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 650);
+    }, 100);
 
   }, [])
 
