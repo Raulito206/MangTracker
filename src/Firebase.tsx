@@ -48,24 +48,24 @@ export const createUserDocument = async(user:User): Promise<DocumentReference<Do
   const userSnapshot = await getDoc(userDocRef);
 
   // If user is new and not in database, insert user into database
-  if(!userSnapshot.exists()) {
-    const{ displayName, email } = user;
-    const createdAt = new Date();
-
-    try{
-
-      await setDoc(userDocRef,
-        {
-          displayName,
-          email,
-          createdAt
-        });
-
-    } catch(error) {
-      console.log('error creating the user', error.message);
-    }
-
+  if(userSnapshot.exists()) {
+    return;
   }
+  const{ displayName, email } = user;
+  const createdAt = new Date();
+
+  try{
+
+    await setDoc(userDocRef,
+      {
+        displayName,
+        email,
+        createdAt
+      });
+
+  } catch(error) {
+    console.log('error creating the user', error.message);
+  } 
 
   // Return document reference of the user
   return userDocRef
