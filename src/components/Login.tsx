@@ -4,8 +4,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { createUserDocument } from '../Firebase'
 import { Navigate } from 'react-router-dom'
 import { FC, useState } from 'react';
-import '../App.css';
-import { Button, ButtonGroup } from '@mui/material';
+import { ButtonGroup } from '@mui/material';
 import { LoadingButton } from '@mui/lab'
 const googleLogo = require('../assets/google-logo.png')
 const githubLogo = require('../assets/github-logo.png')
