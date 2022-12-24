@@ -1,8 +1,7 @@
 import { Navbar } from "./Navbar"
 import { FC, useEffect, useState } from "react"
-import "../App.css";
-import { createUserDocument } from "../Firebase"
-import { Login } from "./Login"
+import { useAuth } from '../contexts/AuthContext'
+import { User } from "firebase/auth";
 
 /**
  * Returns Account page as JSX 
@@ -10,39 +9,33 @@ import { Login } from "./Login"
  */
 export const Account:FC = ():JSX.Element => {
 
+
+    // Context containing user
+    const context = useAuth();
+
     // User info and set user info
-    const [userinfo, setUserInfo] = useState([]);
+    const [userinfo, setUserInfo] = useState<User>(context.user);
 
     // Fetch the required data and store in state
     useEffect(() => {
-        const fetchData = () => {
-            // Generate unique user documentation reference
-            const uniqueUserRef = {};
-            
-            // Fetch user data from firestore using user reference
-            
-        }
-    }
+        setUserInfo(context.user);
+    },[context]);
 
-    );
-    
 
     return (
         <div>
-        <Navbar SelectedTab={2}/>
-        <div className={"accounttext"}>
-            <ul className={'accounttextul'}>
-                <li>User ID: </li>
-                <li>Email: </li>
-                <li>Display: </li>
-            </ul>
-            <ul className={'accounttextul'}>
-                <li>{userinfo[0]}</li>
-                <li>{userinfo[1]}</li>
-                <li>{userinfo[2]}</li>
-            </ul>
-        </div>
-            
+            <Navbar SelectedTab={2}/>
+            <div className={"accounttext"}>
+                <ul className={'accounttextul'}>
+                    <li>Display: </li>
+                    <li>Email: </li>
+                </ul>
+                <ul className={'accounttextul'}>
+                    <li>{userinfo.displayName}</li>
+                    <li>{userinfo.email}</li>
+                    <li><img style={{display: "inline-block"}} src={userinfo.photoURL} alt="User profile"></img></li>
+                </ul>
+            </div>
         </div>
     )
 }

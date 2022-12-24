@@ -1,8 +1,12 @@
 import { Navbar } from "./Navbar"
 import { FC, useEffect, useState } from 'react'
-import { Fab, FormControl, FormHelperText, Input, InputLabel, Select, MenuItem } from "@mui/material"
+import { Fab, FormControl, Select, MenuItem } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
+
+interface AddStateProp {
+    addState: boolean;
+}
 
 const ListOfMangas:FC = ():JSX.Element => {
     return (
@@ -33,7 +37,7 @@ const AddMangaURL:FC = ():JSX.Element => {
  * Returns supported scanlation groups in the form of a dropdown as JSX 
  * @returns JSX.Element
  */
-const AddMangaDropdown:FC = ():JSX.Element => {
+const AddMangaDropdown:FC<AddStateProp> = ({addState}):JSX.Element => {
 
     const [mangaSource, setMangaSource] = useState<string>('');
     
@@ -52,7 +56,7 @@ const AddMangaDropdown:FC = ():JSX.Element => {
         <div className="manga-dropdown" style={{display:"flex", justifyContent:"center"}}>
             <FormControl id="add-manga-form" fullWidth={true} sx={styles_mangaDropdown}>
                 <Select 
-                    
+                    id="manga-dropdown-select"
                     sx={{ justifyContent:"center", alignItems:"center" }}
                     size="small"
                     displayEmpty={true}
@@ -95,11 +99,11 @@ export const Bookmarks:FC = ():JSX.Element => {
     return (
         <div className="bookmarks">
             <Navbar SelectedTab={1}/>
-            <AddMangaDropdown />
+            <AddMangaDropdown addState={addState} />
             <div className="addButton">
                 <Fab color="primary" aria-label="add" align-self="right" onClick={() => {
-                    setAddState(!addState);
-                    }} >
+                        setAddState(!addState);
+                    }}>
                     {addState === false && <AddIcon />}
                     {addState === true && <RemoveIcon />}
                 </Fab>
