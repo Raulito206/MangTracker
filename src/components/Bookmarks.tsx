@@ -2,7 +2,6 @@ import { Navbar } from "./Navbar"
 import { FC } from 'react'
 import { Fab } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add'
-import "../App.css"
 
 const ListOfMangas:FC = ():JSX.Element => {
     return (
