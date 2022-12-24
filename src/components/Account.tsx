@@ -23,7 +23,6 @@ export const Account:FC = ():JSX.Element => {
 
     //ooga booga test
 
-
     return (
         <div>
             <Navbar SelectedTab={2}/>
