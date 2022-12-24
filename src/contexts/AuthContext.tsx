@@ -34,7 +34,6 @@ export const AuthProvider:FC<any> = ({ children }: any):JSX.Element => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user);
-            console.log('AUTH STATE CHANGED');
         })
         return unsubscribe;
     }, [])
