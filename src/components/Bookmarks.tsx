@@ -2,7 +2,6 @@ import { Navbar } from "./Navbar"
 import { FC } from 'react'
 import { Fab } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add'
-import "../App.css"
 
 const ListOfMangas:FC = ():JSX.Element => {
     return (
@@ -20,8 +19,6 @@ const Manga:FC = ():JSX.Element => {
     )
 }
 
-
-
 /**
  * Returns Bookmark page as JSX 
  * @returns JSX.Element
@@ -36,7 +33,9 @@ export const Bookmarks:FC = ():JSX.Element => {
             </Fab>
             </div>
 
-           
+            <Fab color="primary" aria-label="add">
+                <AddIcon/>
+            </Fab>
         </div>
     )
 }

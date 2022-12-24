@@ -70,3 +70,14 @@ export const createUserDocument = async(user:User): Promise<DocumentReference<Do
   // Return document reference of the user
   return userDocRef
  }
+
+
+export const createBookmark = (user:User) => {
+  const uid = user.uid;
+
+  const userDocRef = doc(db, 'users', uid);
+
+  
+
+}
+
