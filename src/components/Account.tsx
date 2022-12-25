@@ -21,11 +21,12 @@ export const Account:FC = ():JSX.Element => {
         setUserInfo(context.user);
     },[context]);
 
-    //ooga booga test
-
     return (
         <div>
             <Navbar SelectedTab={2}/>
+            <div className={"imageStyle"}>
+            <img style={{display: "inline-block", marginTop: "10%", borderRadius: "50%"}} src={userinfo.photoURL} alt="User profile"></img>
+            </div>
             <div className={"accounttext"}>
                 <ul className={'accounttextul'}>
                     <li>Display: </li>
@@ -34,7 +35,7 @@ export const Account:FC = ():JSX.Element => {
                 <ul className={'accounttextul'}>
                     <li>{userinfo.displayName}</li>
                     <li>{userinfo.email}</li>
-                    <li><img style={{display: "inline-block"}} src={userinfo.photoURL} alt="User profile"></img></li>
+                    <li></li>
                 </ul>
             </div>
         </div>
