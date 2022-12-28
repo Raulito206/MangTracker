@@ -51,13 +51,14 @@ export const createUserDocument = async(user:User): Promise<DocumentReference<Do
   if(userSnapshot.exists()) {
     return;
   }
-  const{ displayName, email } = user;
+  const{ uid, displayName, email } = user;
   const createdAt = new Date();
 
   try{
 
     await setDoc(userDocRef,
       {
+        uid,
         displayName,
         email,
         createdAt
