@@ -94,9 +94,7 @@
   height: 2vmax;
 }
 
-.css-heg063-MuiTabs-flexContainer{
-  width:200%;
-}
+
 .MuiTabs-scroller, .MuiTabs-scroller a {
   background-color: rgba(255,255,255,1);
   border-radius: 20px;
