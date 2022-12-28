@@ -94,13 +94,13 @@
   height: 2vmax;
 }
 
+
 .MuiTabs-scroller, .MuiTabs-scroller a {
   background-color: rgba(255,255,255,1);
   border-radius: 20px;
   color: black;
 
 }
-
 
 .navbar-wrapper {
   display: flex;
@@ -127,13 +127,12 @@ color: #1976d2 !important;
 .accounttext {
   margin-top: 10%;
   display: flex;
-  justify-content: space-between;
   color: white;
   font-size: 20px;
-  padding-right: 5%;
-  position: absolute;
   border-style: solid;
-  border-radius: 20px;
+  border-radius: 40px;
+  border-width: 1px;
+  border-color:rgba(244, 244, 244, 0.3);
 }
 
 .accounttextul {

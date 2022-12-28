@@ -1,11 +1,16 @@
 import { Navbar } from "./Navbar"
-import { FC, useEffect, useState } from 'react'
-import { Fab, FormControl, Select, MenuItem } from "@mui/material"
+import { FC, useEffect, useState, KeyboardEvent } from 'react'
+import { Fab, FormControl, Select, MenuItem, TextField } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
+import { BooleanLiteral, Map } from "typescript"
 
 interface AddStateProp {
     addState: boolean;
+}
+
+interface AddSelectedProp {
+    addSelectedState: boolean;
 }
 
 const ListOfMangas:FC = ():JSX.Element => {
@@ -24,11 +29,39 @@ const Manga:FC = ():JSX.Element => {
     )
 }
 
-const AddMangaURL:FC = ():JSX.Element => {
+const AddMangaURL:FC<AddSelectedProp> = ({addSelectedState}):JSX.Element => {
+    
+    const [inputURLS, setInputURLS] = useState([]);
+    const [currentValue, setCurrentValue] = useState('');
 
+    const styles_mangaurl = () => {
+        return {
+            backgroundColor:"white", 
+            display:"none",
+            marginTop:"30px",
+            borderRadius:"10px",
+            borderColor:"none"
+        }
+    }
+
+    const handleKeyPress = (event: KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            setInputURLS([...inputURLS, currentValue]);
+            setCurrentValue('');
+            console.log(currentValue);
+        }
+    }
     return (
-        <div>
-
+        <div style={{display:"flex", justifyContent:"center"}}>
+            <FormControl id = 'add-url-form' fullWidth={true} sx={styles_mangaurl}>
+            <TextField
+                id="manga-url-input"
+                label="Enter a Manga URL"
+                variant="outlined"
+                onChange={event => setCurrentValue(event.target.value)}
+                onKeyPress={handleKeyPress}
+             />
+            </FormControl>
         </div>
     )
 }
@@ -91,8 +124,10 @@ export const Bookmarks:FC = ():JSX.Element => {
     useEffect(() => {
         if (addState === false) {
             document.getElementById("add-manga-form").style.display = "none"
+            document.getElementById("add-url-form").style.display = "none"
         } else {
             document.getElementById("add-manga-form").style.display = "flex"
+            document.getElementById("add-url-form").style.display = "flex"
         }
     }, [addState])
     
@@ -108,6 +143,7 @@ export const Bookmarks:FC = ():JSX.Element => {
                     {addState === true && <RemoveIcon />}
                 </Fab>
             </div>
+            <AddMangaURL addSelectedState = { true } />
         </div>
     )
 }
