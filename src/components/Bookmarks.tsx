@@ -1,17 +1,16 @@
 import { Navbar } from "./Navbar"
-import { FC, useEffect, useState, KeyboardEvent } from 'react'
+import { FC, useState, KeyboardEvent } from 'react'
 import { Fab, FormControl, Select, MenuItem, TextField } from "@mui/material"
+import * as functions from 'firebase/functions'
+import { functionsFromApp } from "../Firebase"
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
-import { BooleanLiteral, Map } from "typescript"
 
-interface AddStateProp {
-    addState: boolean;
-}
 
-interface AddSelectedProp {
-    addSelectedState: boolean;
-}
+
+interface AddMangaDropdownProp { mangaSource: string, setMangaSource: Function };
+
+interface AddMangaURLProp { mangaSource: string };
 
 const ListOfMangas:FC = ():JSX.Element => {
     return (
@@ -29,26 +28,31 @@ const Manga:FC = ():JSX.Element => {
     )
 }
 
-const AddMangaURL:FC<AddSelectedProp> = ({addSelectedState}):JSX.Element => {
+const AddMangaURL:FC<AddMangaURLProp> = ({mangaSource}):JSX.Element => {
     
-    const [inputURLS, setInputURLS] = useState([]);
     const [currentValue, setCurrentValue] = useState('');
 
     const styles_mangaurl = () => {
         return {
             backgroundColor:"white", 
-            display:"none",
             marginTop:"30px",
             borderRadius:"10px",
             borderColor:"none"
         }
     }
 
-    const handleKeyPress = (event: KeyboardEvent) => {
+    const handleKeyPress = async (event: KeyboardEvent) => {
         if (event.key === 'Enter') {
-            setInputURLS([...inputURLS, currentValue]);
-            setCurrentValue('');
             console.log(currentValue);
+            const reqString = "importFrom" + mangaSource.replace(" ", "");
+            try {
+                const importedFunction = functions.httpsCallable(functionsFromApp, reqString);
+                const result = await importedFunction();
+                console.log(result);
+
+            } catch(error) {
+                console.error(error);
+            }
         }
     }
     return (
@@ -70,16 +74,13 @@ const AddMangaURL:FC<AddSelectedProp> = ({addSelectedState}):JSX.Element => {
  * Returns supported scanlation groups in the form of a dropdown as JSX 
  * @returns JSX.Element
  */
-const AddMangaDropdown:FC<AddStateProp> = ({addState}):JSX.Element => {
+const AddMangaDropdown:FC<AddMangaDropdownProp> = ({mangaSource, setMangaSource}):JSX.Element => {
 
-    const [mangaSource, setMangaSource] = useState<string>('');
-    
     const availableSources:string[] = ['Asura Scans', 'Reaper Scans', 'Flame Scans'];
 
     const styles_mangaDropdown = () => {
         return {
             backgroundColor:"white", 
-            display:"none",
             marginTop:"30px",
             borderRadius:"10px"
         }
@@ -120,21 +121,12 @@ const AddMangaDropdown:FC<AddStateProp> = ({addState}):JSX.Element => {
 export const Bookmarks:FC = ():JSX.Element => {
     
     const [addState, setAddState] = useState(false);
+    const [mangaSource, setMangaSource] = useState<string>('');
 
-    useEffect(() => {
-        if (addState === false) {
-            document.getElementById("add-manga-form").style.display = "none"
-            document.getElementById("add-url-form").style.display = "none"
-        } else {
-            document.getElementById("add-manga-form").style.display = "flex"
-            document.getElementById("add-url-form").style.display = "flex"
-        }
-    }, [addState])
-    
     return (
         <div className="bookmarks">
             <Navbar SelectedTab={1}/>
-            <AddMangaDropdown addState={addState} />
+            {addState === true && <AddMangaDropdown mangaSource={mangaSource} setMangaSource={setMangaSource} />}
             <div className="addButton">
                 <Fab color="primary" aria-label="add" align-self="right" onClick={() => {
                         setAddState(!addState);
@@ -143,7 +135,7 @@ export const Bookmarks:FC = ():JSX.Element => {
                     {addState === true && <RemoveIcon />}
                 </Fab>
             </div>
-            <AddMangaURL addSelectedState = { true } />
+            {addState === true && <AddMangaURL mangaSource={mangaSource} />}
         </div>
     )
 }

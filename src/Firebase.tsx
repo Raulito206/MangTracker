@@ -5,6 +5,7 @@ import { getFirestore, doc, getDoc, setDoc, Firestore, DocumentReference, Docume
 import { FacebookAuthProvider } from "firebase/auth";
 import { GithubAuthProvider } from "firebase/auth";
 import { User } from 'firebase/auth'
+import * as functions from 'firebase/functions'
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -31,6 +32,9 @@ export const auth:Auth = getAuth(app);
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db:Firestore = getFirestore(app);
+
+// Exposes functions for onCall
+export const functionsFromApp = functions.getFunctions(app, "us-central1");
 
 /**
  * Upsert a given user into the database
