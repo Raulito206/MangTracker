@@ -47,8 +47,8 @@ const AddMangaURL:FC<AddMangaURLProp> = ({mangaSource}):JSX.Element => {
             const reqString = "importFrom" + mangaSource.replace(" ", "");
             try {
                 const importedFunction = functions.httpsCallable(functionsFromApp, reqString);
-                const result = await importedFunction();
-                console.log(result);
+                const result = await importedFunction(currentValue);
+                console.log(JSON.stringify(result));
 
             } catch(error) {
                 console.error(error);
