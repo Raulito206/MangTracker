@@ -1,82 +1,33 @@
 import { Navbar } from "./Navbar"
-import { FC, useState, KeyboardEvent } from 'react'
-import { Fab, FormControl, Select, MenuItem, TextField } from "@mui/material"
+import { FC, useState, useEffect } from 'react'
+import { Fab, FormControl, TextField, Autocomplete } from "@mui/material"
 import * as functions from 'firebase/functions'
 import { functionsFromApp } from "../Firebase"
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 
-
-
-interface AddMangaDropdownProp { mangaSource: string, setMangaSource: Function };
-
-interface AddMangaURLProp { mangaSource: string };
-
-const ListOfMangas:FC = ():JSX.Element => {
-    return (
-        <div>
-
-        </div>
-    )
-}
-
-const Manga:FC = ():JSX.Element => {
-    return (
-        <div>
-
-        </div>
-    )
-}
-
-const AddMangaURL:FC<AddMangaURLProp> = ({mangaSource}):JSX.Element => {
-    
-    const [currentValue, setCurrentValue] = useState('');
-
-    const styles_mangaurl = () => {
-        return {
-            backgroundColor:"white", 
-            marginTop:"30px",
-            borderRadius:"10px",
-            borderColor:"none"
-        }
-    }
-
-    const handleKeyPress = async (event: KeyboardEvent) => {
-        if (event.key === 'Enter') {
-            console.log(currentValue);
-            const reqString = "importFrom" + mangaSource.replace(" ", "");
-            try {
-                const importedFunction = functions.httpsCallable(functionsFromApp, reqString);
-                const result = await importedFunction(currentValue);
-                console.log(JSON.stringify(result));
-
-            } catch(error) {
-                console.error(error);
-            }
-        }
-    }
-    return (
-        <div style={{display:"flex", justifyContent:"center"}}>
-            <FormControl id = 'add-url-form' fullWidth={true} sx={styles_mangaurl}>
-            <TextField
-                id="manga-url-input"
-                label="Enter a Manga URL"
-                variant="outlined"
-                onChange={event => setCurrentValue(event.target.value)}
-                onKeyPress={handleKeyPress}
-             />
-            </FormControl>
-        </div>
-    )
-}
-
 /**
- * Returns supported scanlation groups in the form of a dropdown as JSX 
+ * Returns list of supported mangas form of a dropdown as JSX 
  * @returns JSX.Element
  */
-const AddMangaDropdown:FC<AddMangaDropdownProp> = ({mangaSource, setMangaSource}):JSX.Element => {
+const AddMangaDropdown:FC = ():JSX.Element => {
 
-    const availableSources:string[] = ['Asura Scans', 'Reaper Scans', 'Flame Scans'];
+    const [mangaNames, setMangaNames] = useState<string[]>([]);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const importedFunction = functions.httpsCallable(functionsFromApp, "listOfSeries");
+                const importedFunctionData = (await importedFunction()).data;
+                if (typeof importedFunctionData === "object" && "mangaNames" in importedFunctionData) {
+                    const fetchedMangaNames: string[] = importedFunctionData.mangaNames as string[];
+                    setMangaNames(fetchedMangaNames);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        })();
+    }, []) 
 
     const styles_mangaDropdown = () => {
         return {
@@ -89,26 +40,10 @@ const AddMangaDropdown:FC<AddMangaDropdownProp> = ({mangaSource, setMangaSource}
     return (
         <div className="manga-dropdown" style={{display:"flex", justifyContent:"center"}}>
             <FormControl id="add-manga-form" fullWidth={true} sx={styles_mangaDropdown}>
-                <Select 
-                    id="manga-dropdown-select"
-                    sx={{ justifyContent:"center", alignItems:"center" }}
-                    size="small"
-                    displayEmpty={true}
-                    value={mangaSource}
-                    onChange={(event) => { setMangaSource(event.target.value) }}
-                    label="manga source"
-                    variant="filled"
-                    renderValue={(value) => {
-                        return (<div style={{paddingBottom:"12px"}}> { value.length === 0 ? "Select a source" : value } </div>)
-                    }}
-                    >
-                    <MenuItem disabled value="">
-                        <em>Currently supported scanlation groups</em>
-                    </MenuItem>
-                    {
-                        availableSources.map((source) => { return <MenuItem key={source} value={source}>{source}</MenuItem> })
-                    }
-                </Select>
+                <Autocomplete
+                    options={mangaNames}
+                    renderInput={(params) => <TextField {...params} label="Series"/>}
+                />
             </FormControl>
         </div>
     )
@@ -121,12 +56,11 @@ const AddMangaDropdown:FC<AddMangaDropdownProp> = ({mangaSource, setMangaSource}
 export const Bookmarks:FC = ():JSX.Element => {
     
     const [addState, setAddState] = useState(false);
-    const [mangaSource, setMangaSource] = useState<string>('');
 
     return (
         <div className="bookmarks">
             <Navbar SelectedTab={1}/>
-            {addState === true && <AddMangaDropdown mangaSource={mangaSource} setMangaSource={setMangaSource} />}
+            {addState === true && <AddMangaDropdown/>}
             <div className="addButton">
                 <Fab color="primary" aria-label="add" align-self="right" onClick={() => {
                         setAddState(!addState);
@@ -135,7 +69,6 @@ export const Bookmarks:FC = ():JSX.Element => {
                     {addState === true && <RemoveIcon />}
                 </Fab>
             </div>
-            {addState === true && <AddMangaURL mangaSource={mangaSource} />}
         </div>
     )
 }
