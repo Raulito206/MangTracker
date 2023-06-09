@@ -6,7 +6,6 @@ import { functionsFromApp } from "../Firebase"
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 
-
 /**
  * Returns list of supported mangas form of a dropdown as JSX 
  * @returns JSX.Element
