@@ -1,6 +1,6 @@
 import { Navbar } from "./Navbar"
 import { FC, useState, useEffect } from 'react'
-import { Fab, FormControl, TextField, Autocomplete } from "@mui/material"
+import { Fab, FormControl, TextField, Autocomplete, Button } from "@mui/material"
 import * as functions from 'firebase/functions'
 import { functionsFromApp } from "../Firebase"
 import AddIcon from '@mui/icons-material/Add'
@@ -13,14 +13,15 @@ import RemoveIcon from '@mui/icons-material/Remove'
 const AddMangaDropdown:FC = ():JSX.Element => {
 
     const [mangaNames, setMangaNames] = useState<string[]>([]);
+    const [selectedMangaName, setSelectedMangaName] = useState<string>(null);
 
     useEffect(() => {
         (async () => {
             try {
                 const importedFunction = functions.httpsCallable(functionsFromApp, "listOfSeries");
                 const importedFunctionData = (await importedFunction()).data;
-                if (typeof importedFunctionData === "object" && "mangaNames" in importedFunctionData) {
-                    const fetchedMangaNames: string[] = importedFunctionData.mangaNames as string[];
+                if (importedFunctionData) {
+                    const fetchedMangaNames: string[] = importedFunctionData as string[];
                     setMangaNames(fetchedMangaNames);
                 }
             } catch (err) {
@@ -28,6 +29,15 @@ const AddMangaDropdown:FC = ():JSX.Element => {
             }
         })();
     }, []) 
+
+    const addBookmark = async () => {
+         try {
+            const importedFunction = functions.httpsCallable(functionsFromApp, "addBookmark");
+            await importedFunction({mangaName: selectedMangaName});
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     const styles_mangaDropdown = () => {
         return {
@@ -41,10 +51,19 @@ const AddMangaDropdown:FC = ():JSX.Element => {
         <div className="manga-dropdown" style={{display:"flex", justifyContent:"center"}}>
             <FormControl id="add-manga-form" fullWidth={true} sx={styles_mangaDropdown}>
                 <Autocomplete
+                    multiple={false}
                     options={mangaNames}
                     renderInput={(params) => <TextField {...params} label="Series"/>}
+                    onChange={(_, text: string) => setSelectedMangaName(text)}
+                    value={selectedMangaName}
                 />
             </FormControl>
+            <Button
+                variant="contained"
+                onClick={addBookmark}
+            >
+                Bookmark
+            </Button>
         </div>
     )
 }
