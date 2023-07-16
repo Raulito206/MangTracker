@@ -68,37 +68,17 @@ export const Login:FC = ():JSX.Element => {
     // If user is not logged in, return a login button
     // return <GoogleButton type="dark" onClick={handleLogin} />
     return (
-        <div className="flex">
-            <div></div>
-            <span className="text-white ">MangTracker</span>
-            {/* <div className={'login'}>
-                <div className={'mangtracker'}>Mangtracker</div>
-                <h2 style={{color:"white", fontSize:"2vmax"}}>Sign-in options</h2>
-                
-                    <ButtonGroup className="signin-btn-group" aria-label="contained primary button group">
-                        <LoadingButton 
-                            variant="contained" 
-                            color="primary" 
-                            loading={isLoading} 
-                            onClick={() => handleLogin(googleProvider)}>
-                                <img className="signin-logo" src={googleLogo} alt="Google Logo"/>
-                        </LoadingButton>
-                        <LoadingButton
-                         variant="contained" 
-                         color="primary" 
-                         loading={isLoading} 
-                         onClick={() => handleLogin(githubProvider)}>
-                            <img className="signin-logo" src={githubLogo} alt="GitHub Logo"/>
-                        </LoadingButton>
-                        <LoadingButton
-                         variant="contained" 
-                         color="primary" 
-                         loading={isLoading} 
-                         onClick={() => handleLogin(facebookProvider)}>
-                            <img className="signin-logo" src={facebookLogo} alt="Facebook Logo"/>
-                        </LoadingButton>
-                    </ButtonGroup>
-            </div> */}
+        <div className="flex flex-col">
+            <div className={'header-box'}>
+                <span className={'logo'}>MangTracker</span>
+                <span className={'logo'}>login</span>
+            </div>
+            <div className={'nav-box'}>
+                <span className={'nav-box-options'}>Popular</span>
+                <span className={'nav-box-options'}>Manga</span>
+                <span className={'nav-box-options'}>Manhwa</span>
+                <span className={'nav-box-options'}>Bookmarks</span>
+            </div>
             <div></div>
         </div>
     );

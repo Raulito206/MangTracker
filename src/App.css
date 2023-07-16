@@ -1,13 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import './fonts.css';
 
 .App {
   text-align: center;
   display: flex;
   justify-content: center;
   width: 100%;
-  background-image: url(./assets/circles.jpg);
+  /* background-image: url(./assets/circles.jpg); */
+  background-color: #1B263B;
   height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;
@@ -143,4 +145,43 @@ color: #1976d2 !important;
   list-style-type: none;
   text-align: left;
   flex-shrink: 0 !important;
+}
+
+.header-box {
+  display: flex;
+  flex-direction: row;
+  height: 10vh; /* 1/10 the window height */
+  width: 100vw;
+  background-color: #264653;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.491);
+  justify-content: space-between;
+  padding-inline: 2.5vw;
+  z-index: 2;
+}
+
+.nav-box {
+  display: flex;
+  flex-direction: row;
+  background-color: #415A77;
+  height: 10vh; /* 1/10 the window height */
+  width: 100vw;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.491);
+  justify-content: space-between;
+  padding-inline: 10vw;
+  z-index: 1;
+}
+
+.logo {
+  font-family: 'Jua', sans-serif;
+  color: #FFFFFF;
+  font-size: 5vh;
+  text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.491);
+  line-height: 10vh;
+}
+
+.nav-box-options {
+  font-family: 'Jua', sans-serif;
+  color: #FFFFFF;
+  font-size: 3vh;
+  line-height: 10vh;
 }
